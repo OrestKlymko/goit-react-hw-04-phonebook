@@ -1,0 +1,17 @@
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  margin-bottom: 15px;
+}
+.submitBtn {
+  width: 100px;
+  color: aliceblue;
+  border: none;
+  border-radius: 5%;
+  background-color: green;
+  padding: 5px 10px;
+  margin-left: 20px;
+}
