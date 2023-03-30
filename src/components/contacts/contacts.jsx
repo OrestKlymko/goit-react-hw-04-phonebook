@@ -14,7 +14,7 @@ export class Form extends Component {
 
   onSubmitForm = e => {
     e.preventDefault();
-    this.props.onSubmit(this.state);
+    this.props.onSubmit({ ...this.state, id: nanoid() });
     this.setState({
       name: '',
       number: '',
