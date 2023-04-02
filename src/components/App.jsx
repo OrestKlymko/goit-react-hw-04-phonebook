@@ -15,6 +15,23 @@ export class App extends Component {
     filter: '',
   };
 
+  componentDidMount() {
+    if (localStorage.getItem('contact_items')) {
+      this.setState({
+        contacts: JSON.parse(localStorage.getItem('contact_items')),
+      });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.contacts !== this.state.contacts) {
+      localStorage.setItem(
+        'contact_items',
+        JSON.stringify(this.state.contacts)
+      );
+    }
+  }
+
   onInput = data => {
     this.setState({
       filter: data.toLowerCase(),
