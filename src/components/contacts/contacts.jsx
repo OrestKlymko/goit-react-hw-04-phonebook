@@ -1,57 +1,56 @@
 import { nanoid } from 'nanoid';
+import React, {useState} from 'react';
 import css from './form.module.css';
-const { Component } = require('react');
+export  function Form (props) {
 
-export class Form extends Component {
-  state = {
-    name: '',
-    number: '',
+  const [state,setState] = useState({name:'',number:''})
+
+  const onInputChange = e => {
+    setState({  ...state,[e.currentTarget.name]: e.currentTarget.value } )
   };
 
-  onInputChange = e => {
-    this.setState({ [e.currentTarget.name]: e.currentTarget.value });
-  };
-
-  onSubmitForm = e => {
+const formSubmit = (e) => {
     e.preventDefault();
-    this.props.onSubmit({ ...this.state, id: nanoid() });
-    this.setState({
+    props.formSubmit({ ...state,id:nanoid() })
+    setState({
       name: '',
       number: '',
     });
   };
 
-  render() {
-    const name = nanoid();
-    const tel = nanoid();
+
+
+
+    const nameID = nanoid();
+    const telID = nanoid();
 
     return (
       <div>
-        <form className={css.form} onSubmit={this.onSubmitForm}>
-          <label id={name} className={css.label}>
+        <form className={css.form} onSubmit={formSubmit} >
+          <label id={nameID} className={css.label}>
             Name
             <input
-              id={name}
+              id={nameID}
               type="text"
               name="name"
               pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
               title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
               required
-              value={this.state.name}
-              onChange={this.onInputChange}
+              value={state.name}
+              onChange={onInputChange}
             />
           </label>
-          <label id={tel} className={css.label}>
+          <label id={telID} className={css.label}>
             Number
             <input
-              id={tel}
+              id={telID}
               type="tel"
               name="number"
               pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
               title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
               required
-              onChange={this.onInputChange}
-              value={this.state.number}
+              onChange={onInputChange}
+              value={state.number}
             />
           </label>
           <button type="submit" className={css.submitBtn}>
@@ -60,5 +59,4 @@ export class Form extends Component {
         </form>
       </div>
     );
-  }
 }
